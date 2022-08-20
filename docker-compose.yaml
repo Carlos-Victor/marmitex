@@ -1,0 +1,26 @@
+version: "3.3"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    command: local
+    env_file: .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./source:/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:12.8
+    volumes:
+      - db-marmitex:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=q1w2Q!W@
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=marmitex
+
+volumes:
+  db-marmitex:
