@@ -35,12 +35,15 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", default=["*"], cast=list)
 # Application definition
 
 INSTALLED_APPS = [
+    "jet",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "company",
+    "phonenumber_field",
 ]
 
 MIDDLEWARE = [
@@ -123,8 +126,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = "/static/"
+
+MEDIA_ROOT = "/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Phone
+
+PHONENUMBER_DB_FORMAT = "NATIONAL"
+PHONENUMBER_DEFAULT_REGION = "BR"
+
+# JET
+
+# JET_DEFAULT_THEME = "light-blue"
+
+JET_THEMES = [
+    {
+        "theme": "light-blue",  # theme folder name
+        "color": "#47bac1",  # color of the theme's button in user menu
+        "title": "Default",  # theme title
+    },
+    {"theme": "light-blue", "color": "#44b78b", "title": "Green"},
+    {"theme": "light-green", "color": "#2faa60", "title": "Light Green"},
+    {"theme": "light-violet", "color": "#a464c4", "title": "Light Violet"},
+    {"theme": "light-blue", "color": "#5EADDE", "title": "Light Blue"},
+    {"theme": "light-gray", "color": "#222", "title": "Light Blue"},
+]

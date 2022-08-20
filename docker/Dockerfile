@@ -1,13 +1,15 @@
 FROM python:3.9.13-alpine3.16
 
 ENV PYTHONUNBUFFERED 1
+ENV TZ "America/Sao_Paulo"
 
 RUN apk update && \
     apk add --no-cache \
         python3-dev \
         postgresql-dev \
         postgresql-client \
-        gcc
+        gcc \
+        tzdata
 
 WORKDIR /app
 

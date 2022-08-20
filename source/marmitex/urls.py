@@ -16,8 +16,14 @@ Including another URLconf
 from __future__ import absolute_import
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+
+admin.site.index_title = "Marmitex"
+admin.site.site_header = "Administração Marmitex"
+admin.site.site_title = "Marmitex"
+
 
 urlpatterns = [
+    path("jet/", include("jet.urls", "jet")),
     path("admin/", admin.site.urls),
 ]
