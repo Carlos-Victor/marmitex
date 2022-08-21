@@ -5,17 +5,10 @@ from menu.models import MenuDay, PacketLunch
 from utils.admin import MarmitexModelAdminMixin
 
 
-class PacketLunchInline(admin.TabularInline):
-    model = MenuDay.packet_lunch.through
-    extra = 1
-    verbose_name = "Marmita"
-    verbose_name_plural = "Marmitas"
-
-
 class MenuDayAdmin(MarmitexModelAdminMixin, admin.ModelAdmin):
 
     raw_id_fields = ("company",)
-    inlines = [PacketLunchInline]
+    filter_horizontal = ["packet_lunch"]
 
     def get_queryset(self, request):
         if request.user.is_superuser:

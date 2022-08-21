@@ -16,7 +16,7 @@ class PacketLunchTest(TestCase):
         packet_lunch = PacketLunchFactory.create()
 
         self.assertEqual(
-            str(packet_lunch), f"{packet_lunch.protein_name} - {packet_lunch.value}"
+            str(packet_lunch), f"{packet_lunch.protein_name}: R${packet_lunch.value}"
         )
 
     def test_clean_user_not_exist_company_generic(self):
@@ -40,7 +40,7 @@ class MenuDayTest(TestCase):
     def test_unicode(self):
         menu_day = MenuDayFactory.create()
 
-        self.assertEqual(str(menu_day), f"{menu_day.day_week}")
+        self.assertEqual(str(menu_day), f"{menu_day.get_day_week_display()}")
 
     def test_menu_day_exist(self):
         user = UserFactory()
@@ -49,7 +49,7 @@ class MenuDayTest(TestCase):
         menu_day = MenuDay(
             company=company_user.company,
             added_by=user,
-            day_week="sum",
+            day_week="sun",
         )
 
         MenuDayFactory.create(
@@ -60,5 +60,20 @@ class MenuDayTest(TestCase):
 
         with self.assertRaisesMessage(
             ValidationError, "Já existe um menu cadastrado para esse dia."
+        ):
+            menu_day.clean()
+
+    def test_menu_day_not_valid_company(self):
+        user = UserFactory()
+        company_user = CompanyUserFactory(user=user)
+
+        menu_day = MenuDay(
+            company=company_user.company,
+            added_by=user,
+            day_week="mon",
+        )
+
+        with self.assertRaisesMessage(
+            ValidationError, "Companhia não funciona no dia informado."
         ):
             menu_day.clean()

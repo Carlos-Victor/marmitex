@@ -47,5 +47,7 @@ urlpatterns = [
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
-    path("api/menu-day/", viewsets.MenuDayViewSet.as_view(), name="menu-day"),
+    path(
+        "api/menu-day/<str:slug>/", viewsets.MenuDayViewSet.as_view(), name="menu-day"
+    ),
 ]

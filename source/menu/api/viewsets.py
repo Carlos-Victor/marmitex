@@ -23,10 +23,14 @@ class MenuDayViewSet(APIView):
     http_method_names = ["get", "head"]
 
     @swagger_auto_schema(responses={200: MenuDaySerializer(many=True)})
-    def get(self, request, *args, **kwargs):
+    def get(self, request, slug, *args, **kwargs):
         day_week = datetime.today().strftime("%A").lower()[0:3]
         try:
-            menu = MenuDay.objects.get(day_week=day_week)
+            menu = MenuDay.objects.get(
+                day_week=day_week,
+                company__operating_days__icontains=day_week,
+                company__slug_website=slug,
+            )
         except MenuDay.DoesNotExist as err:
             raise Http404
 

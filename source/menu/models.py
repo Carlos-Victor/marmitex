@@ -18,7 +18,7 @@ class PacketLunch(MarmitexModel):
         verbose_name_plural = "Marmitas"
 
     def __str__(self):
-        return f"{self.protein_name} - {self.value}"
+        return f"{self.protein_name}: R${self.value}"
 
 
 class MenuDay(MarmitexModel):
@@ -32,7 +32,7 @@ class MenuDay(MarmitexModel):
         verbose_name_plural = "Menu do dia"
 
     def __str__(self):
-        return f"{self.day_week}"
+        return f"{self.get_day_week_display()}"
 
     def clean(self):
         super().clean()
@@ -43,3 +43,8 @@ class MenuDay(MarmitexModel):
             ).exists()
         ):
             raise ValidationError("Já existe um menu cadastrado para esse dia.")
+
+        if not Company.objects.filter(
+            operating_days__icontains=self.day_week, id=self.company.id
+        ):
+            raise ValidationError("Companhia não funciona no dia informado.")

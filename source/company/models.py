@@ -18,7 +18,7 @@ class Company(models.Model):
         ("mon", "Segunda"),
         ("tue", "Terça"),
         ("wed", "Quarta"),
-        ("thus", "Quinta"),
+        ("thu", "Quinta"),
         ("fri", "Sexta"),
         ("sat", "Sábado"),
     )
@@ -28,7 +28,7 @@ class Company(models.Model):
         "Logo", upload_to=get_directory_path_logo, blank=False, null=False
     )
     operating_days = MultiSelectField(
-        "Dias de funcionamento", choices=DAY_WEEKS, max_length=22, max_choices=7
+        "Dias de funcionamento", choices=DAY_WEEKS, max_length=28, max_choices=7
     )
     opening_time = models.TimeField(
         "Horário de abertura",
@@ -45,6 +45,8 @@ class Company(models.Model):
         blank=False,
     )
     phone = PhoneNumberField("Telefone", blank=False)
+    slug_website = models.SlugField("Slug site", unique=True)
+    date_added = models.DateTimeField("data de inserção", auto_now_add=True)
     added_by = models.ForeignKey(
         User,
         verbose_name="inserido por",
@@ -52,7 +54,6 @@ class Company(models.Model):
         null=False,
         blank=False,
     )
-    date_added = models.DateTimeField("data de inserção", auto_now_add=True)
 
     class Meta:
         verbose_name = "companhia"
@@ -62,6 +63,8 @@ class Company(models.Model):
         return self.name
 
     def clean(self):
+        self.slug_website = getattr(self, "slug_website", "").lower()
+
         if (
             not self.pk
             and getattr(self, "added_by", None)

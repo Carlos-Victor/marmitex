@@ -21,7 +21,7 @@ class CompanyTest(TestCase):
         company = Company(
             name="test",
             logo="",
-            operating_days=["sum"],
+            operating_days=["sun"],
             opening_time="08:00:00",
             closing_time="09:00:00",
             phone="85999999999",
@@ -39,7 +39,7 @@ class CompanyTest(TestCase):
         company = Company(
             name="test",
             logo="",
-            operating_days=["sum"],
+            operating_days=["sun"],
             opening_time="08:00:00",
             closing_time="09:00:00",
             phone="85999999999",
@@ -53,7 +53,7 @@ class CompanyTest(TestCase):
         company = Company(
             name="test",
             logo="",
-            operating_days=["sum"],
+            operating_days=["sun"],
             opening_time="08:00:00",
             closing_time="07:59:59",
             phone="85999999999",

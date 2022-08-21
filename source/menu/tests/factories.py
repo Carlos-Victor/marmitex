@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from company.tests.factories import CompanyFactory
 from factory import Faker, SubFactory, post_generation
-from factory.django import DjangoModelFactory, ImageField
+from factory.django import DjangoModelFactory
 from menu.models import MenuDay, PacketLunch
 from utils.tests.factories import UserFactory
 
@@ -21,7 +21,7 @@ class PacketLunchFactory(DjangoModelFactory):
 
 class MenuDayFactory(DjangoModelFactory):
     company = SubFactory(CompanyFactory)
-    day_week = "sum"
+    day_week = "sun"
     added_by = SubFactory(UserFactory)
 
     class Meta:
@@ -30,9 +30,6 @@ class MenuDayFactory(DjangoModelFactory):
 
     @post_generation
     def packet_lunch(self, create, extracted, **kwargs):
-        if not create:
-            return
-
         if extracted:
             for packet_lunch in extracted:
                 self.packet_lunch.add(packet_lunch)
