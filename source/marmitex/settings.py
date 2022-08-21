@@ -35,19 +35,22 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", default=["*"], cast=list)
 # Application definition
 
 INSTALLED_APPS = [
-    "jet",
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "utils",
     "company",
     "phonenumber_field",
+    "menu",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -129,6 +132,7 @@ STATIC_URL = "static/"
 STATIC_ROOT = "/static/"
 
 MEDIA_ROOT = "/media/"
+MEDIA_URL = MEDIA_ROOT
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -140,19 +144,37 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 PHONENUMBER_DB_FORMAT = "NATIONAL"
 PHONENUMBER_DEFAULT_REGION = "BR"
 
-# JET
-
-# JET_DEFAULT_THEME = "light-blue"
-
-JET_THEMES = [
-    {
-        "theme": "light-blue",  # theme folder name
-        "color": "#47bac1",  # color of the theme's button in user menu
-        "title": "Default",  # theme title
+# jazzmine
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": True,
+    "brand_small_text": False,
+    "brand_colour": False,
+    "accent": "accent-primary",
+    "navbar": "navbar-white navbar-light",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-primary",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "yeti",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-outline-primary",
+        "secondary": "btn-outline-secondary",
+        "info": "btn-outline-info",
+        "warning": "btn-outline-warning",
+        "danger": "btn-outline-danger",
+        "success": "btn-outline-success",
     },
-    {"theme": "light-blue", "color": "#44b78b", "title": "Green"},
-    {"theme": "light-green", "color": "#2faa60", "title": "Light Green"},
-    {"theme": "light-violet", "color": "#a464c4", "title": "Light Violet"},
-    {"theme": "light-blue", "color": "#5EADDE", "title": "Light Blue"},
-    {"theme": "light-gray", "color": "#222", "title": "Light Blue"},
-]
+}
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+
 class MarmitexModelAdminMixin(object):
     readonly_fields = ["date_added", "added_by"]
 

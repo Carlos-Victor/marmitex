@@ -1,27 +1,24 @@
 from __future__ import absolute_import
 
 from django.contrib import admin
+from utils.admin import MarmitexModelAdminMixin
 
-from .forms import CompanyForm
 from .models import Company, CompanyUser
-from .utils.admin import MarmitexModelAdminMixin
 
 # Register your models here.
 
 
 class CompanyAdmin(MarmitexModelAdminMixin, admin.ModelAdmin):
-    form = CompanyForm
-
-    class Media:
-        css = {"all": ("admin/css/admin.css",)}
-
     def get_queryset(self, request):
         if request.user.is_superuser:
             return super().get_queryset(request)
 
         return Company.objects.filter(companyuser__user=request.user)
 
-    def has_add_permissions(self, request):
+    def has_add_permission(self, request):
+        return request.user.is_superuser
+
+    def has_delete_permission(self, request, obj=None):
         return request.user.is_superuser
 
 
