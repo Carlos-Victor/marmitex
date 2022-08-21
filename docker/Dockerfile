@@ -5,6 +5,7 @@ ENV TZ "America/Sao_Paulo"
 
 RUN apk update && \
     apk add --no-cache \
+        build-base \
         python3-dev \
         postgresql-dev \
         postgresql-client \
