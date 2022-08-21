@@ -10,7 +10,7 @@ runs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Setup env
+    - name: Setup packages Alpine
       shell: sh
       run: |
         apk update
@@ -37,4 +37,4 @@ runs:
         SECRET_KEY: ${{ inputs.SECRET_KEY }}
       run: |
         coverage run source/manage.py test
-        coverage report -m
+        coverage report -m --fail-under=90
