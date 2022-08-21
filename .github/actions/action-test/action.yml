@@ -13,6 +13,18 @@ runs:
     - name: Setup env
       shell: sh
       run: |
+        apk update
+        apk add --no-cache \
+          build-base \
+          python3-dev \
+          postgresql-dev \
+          postgresql-client \
+          gcc \
+          tzdata
+
+    - name: Setup env
+      shell: sh
+      run: |
         cp .env-sample .env
 
     - name: Setup dependencies

@@ -10,7 +10,7 @@ jobs:
     container:
       image: python:3.9.13-alpine3.16
     services:
-      postgres:
+      db:
         image: postgres:12.8
         env:
           POSTGRES_PASSWORD: q1w2Q!W@
