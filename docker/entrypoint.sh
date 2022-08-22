@@ -21,5 +21,5 @@ elif [ "$1" = "local" ]; then
     exec python manage.py runserver 0.0.0.0:8000
 
 else
-    exec gunicorn -b 0.0.0.0:8000 marmitex.wsgi -w 3 --timeout 0 wsgi
+    exec gunicorn -b 0.0.0.0:8000 marmitex.wsgi -w 3 --timeout 0
 fi

@@ -120,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "pt-br"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = config("TZ", default="America/Fortaleza", cast=str)
 
 USE_I18N = True
 
@@ -179,4 +179,8 @@ JAZZMIN_UI_TWEAKS = {
     },
 }
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+JAZZMIN_SETTINGS = {
+    "welcome_sign": "",
+}
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"

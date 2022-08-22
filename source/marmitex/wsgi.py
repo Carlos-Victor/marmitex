@@ -18,7 +18,9 @@ from whitenoise import WhiteNoise
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "marmitex.settings")
 
 application = get_wsgi_application()
-
-if not settings.DEBUG:
-    application = WhiteNoise(application, root="/static/")
-    application.add_files("/static/")
+application = WhiteNoise(
+    application, root=settings.STATIC_ROOT, autorefresh=settings.DEBUG
+)
+application.add_files(
+    settings.MEDIA_ROOT, prefix="{0}/".format(settings.MEDIA_URL.strip("/"))
+)
