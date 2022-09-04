@@ -14,7 +14,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-COPY source /app/
+COPY ./source /app/
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 RUN rm -rf requirements.txt
