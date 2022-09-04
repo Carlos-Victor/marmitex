@@ -1,0 +1,16 @@
+name: Run Deploy
+inputs:
+  HEROKU_AUTH_TOKEN:
+    required: true
+    description: HEROKU AUTH TOKEN
+
+runs:
+  using: composite
+  steps:
+    - name: deploy
+      shell: sh
+      run: |
+        apt-get update -qy \
+        apt-get install -y ruby-dev \
+        gem install dpl \
+        dpl --provider=heroku --app=marmitex --api-key=$HEROKU_AUTH_TOKEN

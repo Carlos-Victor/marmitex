@@ -1,0 +1,17 @@
+name: Deploy Heroku
+jobs:
+
+on:
+  push:
+    branches:
+      - master
+
+  deploy:
+    runs-on: ubuntu-20.04
+      - name: Checkout
+    steps:
+        uses: actions/checkout@v3
+      - name: Run Deploy
+        uses: ./.github/actions/action-deploy
+        with:
+          HEROKU_AUTH_TOKEN: ${{ secrets.HEROKU_AUTH_TOKEN }}
