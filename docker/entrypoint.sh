@@ -20,9 +20,6 @@ elif [ "$1" = "local" ]; then
     run_migrations &&
     exec python manage.py runserver 0.0.0.0:8000
 
-elif ["$1" = "shell"]; then
-    exec /bin/sh
-
 else
-    exec gunicorn -b 0.0.0.0:$PORT marmitex.wsgi -w 3 --timeout 0
+    exec "$@"
 fi

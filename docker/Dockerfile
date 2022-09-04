@@ -33,3 +33,5 @@ ENV DB_HOST ""
 RUN python manage.py collectstatic --no-input
 
 ENTRYPOINT ["/entrypoint.sh"]
+
+CMD gunicorn -b 0.0.0.0:$PORT marmitex.wsgi -w 3 --timeout 0
