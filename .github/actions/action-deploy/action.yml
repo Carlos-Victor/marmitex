@@ -13,4 +13,4 @@ runs:
         sudo apt-get update -qy
         sudo apt-get install -y ruby-dev
         sudo gem install dpl
-        dpl --provider=heroku --app=marmitex --api-key=${{ inputs.HEROKU_AUTH_TOKEN }}
+        sudo dpl --provider=heroku --app=marmitex --api-key=${{ inputs.HEROKU_AUTH_TOKEN }}
