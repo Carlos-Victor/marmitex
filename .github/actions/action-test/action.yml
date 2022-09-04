@@ -1,0 +1,40 @@
+name: Run tests
+inputs:
+  SECRET_KEY:
+    required: true
+    description: Secret Key Django
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup packages Alpine
+      shell: sh
+      run: |
+        apk update
+        apk add --no-cache \
+          build-base \
+          python3-dev \
+          postgresql-dev \
+          postgresql-client \
+          gcc \
+          tzdata
+
+    - name: Setup env
+      shell: sh
+      run: |
+        cp .env-sample .env
+
+    - name: Setup dependencies
+      shell: sh
+      run: |
+        pip install --upgrade pip && pip install -r source/requirements.txt
+    - name: Run tests
+      shell: sh
+      env:
+        SECRET_KEY: ${{ inputs.SECRET_KEY }}
+      run: |
+        coverage run source/manage.py test
+        coverage report -m --fail-under=90

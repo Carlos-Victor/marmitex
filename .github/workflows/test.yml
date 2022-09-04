@@ -1,0 +1,26 @@
+name: Test
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    container:
+      image: python:3.9.13-alpine3.16
+    services:
+      db:
+        image: postgres:12.8
+        env:
+          POSTGRES_PASSWORD: q1w2Q!W@
+          POSTGRES_USER: postgres
+          POSTGRES_DB: marmitex
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Run tests
+        uses: ./.github/actions/action-test
+        with:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
